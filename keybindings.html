@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neovim Keybindings</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+      background: #1a1b26;
+      color: #c0caf5;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #7aa2f7;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: #565f89;
+      margin-bottom: 1.5rem;
+    }
+
+    #search {
+      width: 100%;
+      max-width: 500px;
+      padding: 0.5rem 0.75rem;
+      background: #24283b;
+      border: 1px solid #3b4261;
+      border-radius: 6px;
+      color: #c0caf5;
+      font-family: inherit;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      outline: none;
+    }
+
+    #search:focus { border-color: #7aa2f7; }
+    #search::placeholder { color: #565f89; }
+
+    .sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .section {
+      background: #24283b;
+      border: 1px solid #3b4261;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .section h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #bb9af7;
+      background: #1f2335;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #3b4261;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    tr { transition: background 0.1s; }
+    tr:hover { background: #2a2e3f; }
+    tr.hidden { display: none; }
+
+    td {
+      padding: 0.45rem 1rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #1e2030;
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    td:first-child {
+      white-space: nowrap;
+      width: 1%;
+    }
+
+    kbd {
+      display: inline-block;
+      background: #1a1b26;
+      border: 1px solid #3b4261;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      color: #e0af68;
+    }
+
+    .note {
+      font-size: 0.75rem;
+      color: #f7768e;
+      background: #1f2335;
+      border-left: 3px solid #f7768e;
+      padding: 0.5rem 1rem;
+      margin-top: 1.5rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .no-results {
+      color: #565f89;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Neovim Keybindings</h1>
+  <p class="subtitle">Leader key = <strong>Space</strong></p>
+
+  <input id="search" type="text" placeholder="Search keybindings..." autofocus />
+
+  <div class="sections" id="sections">
+
+    <div class="section" data-section>
+      <h2>General</h2>
+      <table>
+        <tr><td><kbd>jk</kbd></td><td>Exit insert mode</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Clear search highlight</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Save &amp; Quit</h2>
+      <table>
+        <tr><td><kbd>&lt;leader&gt; w</kbd></td><td>Save file</td></tr>
+        <tr><td><kbd>&lt;leader&gt; q</kbd></td><td>Quit</td></tr>
+        <tr><td><kbd>&lt;leader&gt; Q</kbd></td><td>Force quit all</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Windows</h2>
+      <table>
+        <tr><td><kbd>C-h</kbd></td><td>Navigate left</td></tr>
+        <tr><td><kbd>C-j</kbd></td><td>Navigate down</td></tr>
+        <tr><td><kbd>C-k</kbd></td><td>Navigate up</td></tr>
+        <tr><td><kbd>C-l</kbd></td><td>Navigate right</td></tr>
+        <tr><td><kbd>C-Up</kbd></td><td>Increase height</td></tr>
+        <tr><td><kbd>C-Down</kbd></td><td>Decrease height</td></tr>
+        <tr><td><kbd>C-Left</kbd></td><td>Decrease width</td></tr>
+        <tr><td><kbd>C-Right</kbd></td><td>Increase width</td></tr>
+        <tr><td><kbd>&lt;leader&gt; |</kbd></td><td>Vertical split</td></tr>
+        <tr><td><kbd>&lt;leader&gt; -</kbd></td><td>Horizontal split</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Buffers</h2>
+      <table>
+        <tr><td><kbd>Shift-l</kbd></td><td>Next buffer</td></tr>
+        <tr><td><kbd>Shift-h</kbd></td><td>Prev buffer</td></tr>
+        <tr><td><kbd>&lt;leader&gt; x</kbd></td><td>Close buffer</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Visual Mode</h2>
+      <table>
+        <tr><td><kbd>&lt;</kbd></td><td>Dedent (stay in visual)</td></tr>
+        <tr><td><kbd>&gt;</kbd></td><td>Indent (stay in visual)</td></tr>
+        <tr><td><kbd>J</kbd></td><td>Move line down</td></tr>
+        <tr><td><kbd>K</kbd></td><td>Move line up</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Search</h2>
+      <table>
+        <tr><td><kbd>n</kbd></td><td>Next match (centered)</td></tr>
+        <tr><td><kbd>N</kbd></td><td>Prev match (centered)</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Telescope</h2>
+      <table>
+        <tr><td><kbd>&lt;leader&gt; ff</kbd></td><td>Find files</td></tr>
+        <tr><td><kbd>&lt;leader&gt; fg</kbd></td><td>Live grep</td></tr>
+        <tr><td><kbd>&lt;leader&gt; fb</kbd></td><td>Find buffers</td></tr>
+        <tr><td><kbd>&lt;leader&gt; fh</kbd></td><td>Help tags</td></tr>
+        <tr><td><kbd>&lt;leader&gt; fr</kbd></td><td>Recent files</td></tr>
+        <tr><td><kbd>&lt;leader&gt; fs</kbd></td><td>Document symbols</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>LSP (when attached)</h2>
+      <table>
+        <tr><td><kbd>gd</kbd></td><td>Go to definition</td></tr>
+        <tr><td><kbd>gD</kbd></td><td>Go to declaration</td></tr>
+        <tr><td><kbd>gr</kbd></td><td>References</td></tr>
+        <tr><td><kbd>gi</kbd></td><td>Implementation</td></tr>
+        <tr><td><kbd>K</kbd></td><td>Hover docs</td></tr>
+        <tr><td><kbd>&lt;leader&gt; rn</kbd></td><td>Rename symbol</td></tr>
+        <tr><td><kbd>&lt;leader&gt; ca</kbd></td><td>Code actions</td></tr>
+        <tr><td><kbd>&lt;leader&gt; fd</kbd></td><td>Format file</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Diagnostics</h2>
+      <table>
+        <tr><td><kbd>&lt;leader&gt; e</kbd></td><td>Show diagnostic float</td></tr>
+        <tr><td><kbd>[d</kbd></td><td>Prev diagnostic</td></tr>
+        <tr><td><kbd>]d</kbd></td><td>Next diagnostic</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Git (gitsigns)</h2>
+      <table>
+        <tr><td><kbd>]c</kbd></td><td>Next hunk</td></tr>
+        <tr><td><kbd>[c</kbd></td><td>Prev hunk</td></tr>
+        <tr><td><kbd>&lt;leader&gt; hs</kbd></td><td>Stage hunk</td></tr>
+        <tr><td><kbd>&lt;leader&gt; hr</kbd></td><td>Reset hunk</td></tr>
+        <tr><td><kbd>&lt;leader&gt; hp</kbd></td><td>Preview hunk</td></tr>
+        <tr><td><kbd>&lt;leader&gt; hb</kbd></td><td>Blame line</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Tools</h2>
+      <table>
+        <tr><td><kbd>&lt;leader&gt; e</kbd></td><td>Toggle file tree</td></tr>
+        <tr><td><kbd>&lt;leader&gt; lg</kbd></td><td>LazyGit</td></tr>
+        <tr><td><kbd>&lt;leader&gt; m</kbd></td><td>Mason</td></tr>
+        <tr><td><kbd>&lt;leader&gt; l</kbd></td><td>Lazy</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Tmux — Sessions &amp; Windows</h2>
+      <table>
+        <tr><td><kbd>C-s f</kbd></td><td>Sessionizer (new window)</td></tr>
+        <tr><td><kbd>C-s o</kbd></td><td>Open session (new window)</td></tr>
+        <tr><td><kbd>C-s b</kbd></td><td>Worktreeionizer (new window)</td></tr>
+        <tr><td><kbd>C-s c</kbd></td><td>New window (current path)</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Tmux — Panes</h2>
+      <table>
+        <tr><td><kbd>C-s s</kbd></td><td>Split pane vertically</td></tr>
+        <tr><td><kbd>C-s v</kbd></td><td>Split pane horizontally</td></tr>
+        <tr><td><kbd>C-h</kbd></td><td>Navigate pane left (vim-tmux-navigator)</td></tr>
+        <tr><td><kbd>C-j</kbd></td><td>Navigate pane down (vim-tmux-navigator)</td></tr>
+        <tr><td><kbd>C-k</kbd></td><td>Navigate pane up (vim-tmux-navigator)</td></tr>
+        <tr><td><kbd>C-l</kbd></td><td>Navigate pane right (vim-tmux-navigator)</td></tr>
+        <tr><td><kbd>C-s l</kbd></td><td>Super fingers</td></tr>
+      </table>
+    </div>
+
+    <div class="section" data-section>
+      <h2>Tmux — Copy Mode (vi)</h2>
+      <table>
+        <tr><td><kbd>y</kbd></td><td>Copy selection</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <p class="note">Note: <kbd>&lt;leader&gt; e</kbd> is bound to both the diagnostic float and the file tree toggle. The file tree binding wins at runtime.</p>
+  <p class="no-results" id="no-results">No keybindings match your search.</p>
+
+  <script>
+    const search = document.getElementById('search');
+    const noResults = document.getElementById('no-results');
+
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase().trim();
+      let anyVisible = false;
+
+      document.querySelectorAll('[data-section]').forEach(section => {
+        let sectionVisible = false;
+        section.querySelectorAll('tr').forEach(row => {
+          const text = row.textContent.toLowerCase();
+          const match = !q || text.includes(q);
+          row.classList.toggle('hidden', !match);
+          if (match) sectionVisible = true;
+        });
+        section.style.display = sectionVisible ? '' : 'none';
+        if (sectionVisible) anyVisible = true;
+      });
+
+      noResults.style.display = anyVisible ? 'none' : 'block';
+    });
+  </script>
+
+</body>
+</html>
